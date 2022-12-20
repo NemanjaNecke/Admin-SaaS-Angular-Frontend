@@ -1,0 +1,61 @@
+<mat-toolbar class="login-toolbar" color="accent">REGISTER</mat-toolbar>
+<mat-card>
+
+	<form [formGroup]="registerForm" #formDirective="ngForm" (ngSubmit)="onSubmit(registerForm, formDirective)">
+		<mat-form-field>
+			<mat-label>Email</mat-label>
+			<mat-icon matPrefix>email</mat-icon>
+			<input autofocus type="email" matInput placeholder="Email *" formControlName="email">
+			<mat-error *ngIf="checkValidation('email')">
+				{{ emaiErrors() }}
+
+			</mat-error>
+		</mat-form-field>
+
+
+		<mat-form-field>
+			<mat-label>First Name</mat-label>
+			<mat-icon matPrefix>person_outline</mat-icon>
+			<input autofocus type="text" matInput placeholder="First Name *" formControlName="first_name">
+			<mat-error *ngIf="checkValidation('first_name')">
+				{{ fieldRequired }}
+			</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Last Name</mat-label>
+			<mat-icon matPrefix>person_outline</mat-icon>
+			<input autofocus type="text" matInput placeholder="Last Name *" formControlName="last_name">
+			<mat-error *ngIf="checkValidation('last_name')">
+				{{ fieldRequired }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>Password</mat-label>
+			<mat-icon matPrefix>lock_outline</mat-icon>
+			<input type="password" autocomplete="false" matInput placeholder="Password *" formControlName="password1">
+			<mat-hint>Choose a password of at least eight characters, one uppercase letter and one number</mat-hint>
+			<mat-error *ngIf="checkValidation('password1')">
+				{{ getErrorPassword() }}
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>Confirm Password</mat-label>
+			<mat-icon matPrefix>lock_outline</mat-icon>
+			<input type="password" autocomplete="false"
+				matInput 
+				placeholder="Confirm Password *" 
+				formControlName="password2">	
+			<mat-error *ngIf="checkValidation('password2')">
+				{{ getErrorPassword() }}
+			</mat-error>
+			
+		</mat-form-field>
+		<mat-divider></mat-divider>
+		<div class="submit">
+			<button style="width:50%" [disabled]="registerForm.invalid" type="submit" mat-raised-button
+				color="primary">Submit</button>
+		</div>
+	</form>
+</mat-card>
