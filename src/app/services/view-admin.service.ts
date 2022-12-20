@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Company } from '../models/user.model';
+import { Admin } from '../models/user.model';
 import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyService {
+export class ViewAdminService {
   baseUrl = environment.baseUrl;
-  companyUrl = environment.apipaths.companies
+  adminUrl = environment.apipaths.adminusers
 token!: any;
 headers!: any;
 user!: any
@@ -32,26 +32,16 @@ user!: any
 
     // Make the HTTP request with the authorization header
   
-    return this.http.get<{[key:number]:Company}>(this.baseUrl + this.companyUrl, { headers: this.headers })
+    return this.http.get<{[key:number]:Admin}>(this.baseUrl + this.adminUrl, { headers: this.headers })
     .pipe(
       map((responseData) => {
-        const companies:Company[] = [];
+        const admins:Admin[] = [];
         for (const key in responseData){
           if (responseData.hasOwnProperty(key)){ 
-            companies.push( {...responseData[key]} ) ;
+            admins.push( {...responseData[key]} ) ;
           }
         }
-      return companies;
+      return admins;
       }))
-  }
-  deactivateInstance(name: any) {
-    return this.http.put(this.baseUrl + this.companyUrl + name+'/deactivate', {}, { headers:this.headers});
-  }
-  activateInstance(name:any){
-    return this.http.put(this.baseUrl + this.companyUrl + name+'/activate', {}, { headers:this.headers});
-  }
-
-  create(data:any){
-    return this.http.post<Company>(this.baseUrl+this.companyUrl, data, { headers:this.headers})
   }
 }

@@ -1,0 +1,20 @@
+
+<h1 mat-dialog-title>Create an Invite</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput [(ngModel)]="email">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose Company Admin</mat-label>
+    <mat-select [(ngModel)]="admin">
+      <mat-option *ngFor="let a of data" [value]="a.id">
+        {{a.email}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onCreate()" cdkFocusInitial>Create</button>
+</div>

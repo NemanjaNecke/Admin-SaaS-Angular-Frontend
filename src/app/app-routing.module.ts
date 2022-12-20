@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CompaniesComponent } from './components/dashboard/companies/companies.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { InvitesComponent } from './components/dashboard/invites/invites.component';
+import { IpComponent } from './components/dashboard/ip/ip.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavComponent } from './components/nav/nav.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -28,12 +31,19 @@ const routes: Routes = [
   {
     path: 'home',
     component: NavComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'companies', component: CompaniesComponent },
+      { path: 'invites', component: InvitesComponent },
+      { path: 'ip-address', component: IpComponent }
+    ]
   },
   {
     path: 'not-found',
     component: NotFoundComponent
-  }
+  },
+
 //   {
 //     path: 'profile',
 //     component: ProfileComponent,

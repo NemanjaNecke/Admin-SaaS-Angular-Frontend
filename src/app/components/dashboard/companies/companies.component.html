@@ -1,0 +1,70 @@
+<div class="grid-container">
+    <h1 class="mat-h1">Companies</h1> 
+    <button mat-raised-button color="primary" (click)="openDialog()">Create a Company</button>
+    <mat-grid-list cols="2" rowHeight="350px">
+      <mat-grid-tile *ngFor="let c of companies" colspan="2" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+              {{c.name}}
+              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item (click)="activate(c.name)">Activate</button>
+                <button mat-menu-item (click)="deactivate(c.name)">Deactivate</button>
+              </mat-menu>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                     Company ID
+                    </mat-panel-title>
+                    <mat-panel-description>
+                     {{c.id}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <p>Company ID is a UID primary key</p>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Company Admin
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{c.admin}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <p>Company Admin is a user that can invite other users to register for this company</p>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Is this company Active
+                      </mat-panel-title>
+                      <mat-panel-description>
+                          {{c.is_active}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>Boolean value that represents if this company is active</p>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Active until
+                      </mat-panel-title>
+                      <mat-panel-description>
+                          {{c.active_until | date}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>Date value that represents for how long will this company stay active. Default value is 90 days.</p>
+                  </mat-expansion-panel>
+              </mat-accordion>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>

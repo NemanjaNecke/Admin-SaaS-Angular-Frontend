@@ -16,7 +16,14 @@ export class NavComponent {
       map(result => result.matches),
       shareReplay()
     );
-
+  
+    links = [
+      { title: 'Dashboard', fragment: 'dashboard' },
+      { title: 'Companies', fragment: 'companies' },
+      { title: 'Invites', fragment: 'invites' },
+      { title: 'IP address', fragment: 'ip-address'},
+    ];
+  
   constructor(
     private breakpointObserver: BreakpointObserver,
     private auth: LoginService

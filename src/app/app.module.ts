@@ -24,6 +24,16 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatDividerModule} from '@angular/material/divider';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { InvitesComponent } from './components/dashboard/invites/invites.component';
+import { CompaniesComponent } from './components/dashboard/companies/companies.component';
+import { IpComponent } from './components/dashboard/ip/ip.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDialogModule} from '@angular/material/dialog';
+import { CreateComponent } from './components/dashboard/companies/create/create.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CreateInviteComponent } from './components/dashboard/invites/create/create.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +42,12 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     DashboardComponent,
     LoginComponent,
     RegisterComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    InvitesComponent,
+    CompaniesComponent,
+    IpComponent,
+    CreateComponent,
+    CreateInviteComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +65,11 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatInputModule,
     MatSnackBarModule,
     MatDividerModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

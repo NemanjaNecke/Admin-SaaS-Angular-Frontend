@@ -1,0 +1,27 @@
+
+<h1 mat-dialog-title>Create a company</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Company Name</mat-label>
+    <input matInput [(ngModel)]="name">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose Company Admin</mat-label>
+    <mat-select [(ngModel)]="admin">
+      <mat-option *ngFor="let a of data" [value]="a.id">
+        {{a.email}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a date until company should be active</mat-label>
+    <input matInput [(ngModel)]="date" [matDatepicker]="picker">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onCreate()" cdkFocusInitial>Create</button>
+</div>

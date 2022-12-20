@@ -39,7 +39,21 @@ export class RegistrationService {
     return this.http.post(this.baseUrl + this.registrationUrl + params, {email, password1, password2, first_name, last_name })
     .pipe(shareReplay()).pipe(
       map((response) => {
-        if(response == '{"detail":"Verification e-mail sent."}')
+        if(response)
+        this.registered = true;
+        }
+      ), catchError((error) => {
+
+        this.errors.push(Object.entries(error.error).join('\n'))
+        return this.errors;
+      })
+      );
+  }
+  registerAdmin(email: string, password1: string, password2: string, first_name: string, last_name: string,  params: string){
+    return this.http.post(this.baseUrl + this.registrationUrl + params, {email, password1, password2, first_name, last_name })
+    .pipe(shareReplay()).pipe(
+      map((response) => {
+        if(response)
         this.registered = true;
         }
       ), catchError((error) => {

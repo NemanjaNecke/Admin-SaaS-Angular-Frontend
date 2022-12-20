@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 import { UserResponse, DecodedToken } from '../models/user.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 import { Router } from '@angular/router';
 const jwt = new JwtHelperService();
@@ -52,13 +52,12 @@ export class LoginService {
         map((tokens: UserResponse) => {
           this.updateData(tokens['access_token']);
           this.updateRefreshToken(tokens['refresh_token']);
-          this.setUsername(tokens["user"].username);
           this.userID(tokens['user'].pk);
         }
         ), catchError((error) => {
  
           this.errors.push(error)
-          return this.errors;
+          return throwError(() => new Error());
         })
       );
   }

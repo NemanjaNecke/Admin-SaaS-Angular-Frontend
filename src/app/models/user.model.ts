@@ -6,7 +6,6 @@ export interface UserResponse {
     "refresh_token": string,
     "user": {
         "pk": number,
-        "username": string,
         "email": string,
         "first_name": string,
         "last_name": string
@@ -42,4 +41,18 @@ export interface Company {
     "is_active": boolean,
     "accounts": User['id'][
     ]
+}
+
+export interface Admin {
+    "email": string,
+    "first_name": string,
+    "last_name": string,
+}
+
+export interface Invites  {
+    "id": string,
+    "email": string,
+    "invited_by": string,
+    "accepted": boolean,
+    "used": boolean
 }

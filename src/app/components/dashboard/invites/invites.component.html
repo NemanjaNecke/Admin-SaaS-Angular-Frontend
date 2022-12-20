@@ -1,0 +1,69 @@
+<div class="grid-container">
+    <h1 class="mat-h1">Invites</h1> 
+    <button mat-raised-button color="primary" (click)="openDialog()">Create an Invite</button>
+    <mat-grid-list cols="2" rowHeight="350px">
+      <mat-grid-tile *ngFor="let i of invites" colspan="2" rowspan="1">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+              Invite for {{i.email}}
+              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item (click)="delete(i.id)">Remove</button>
+              </mat-menu>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                     Invite ID
+                    </mat-panel-title>
+                    <mat-panel-description>
+                     {{i.id}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <p>Invite ID is a UID primary key</p>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                     Invited by Company Admin
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{i.invited_by}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <p>Company Admin is a user that can invite other users to register for this company</p>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Is this invite Active
+                      </mat-panel-title>
+                      <mat-panel-description>
+                          {{i.used}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>Boolean value that represents if this invite is active and user is still unregisterd</p>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Is invite accepted
+                      </mat-panel-title>
+                      <mat-panel-description>
+                          {{i.accepted}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>Boolean value that represents if the user actually registered</p>
+                  </mat-expansion-panel>
+              </mat-accordion>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>

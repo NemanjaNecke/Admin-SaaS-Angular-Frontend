@@ -29,20 +29,22 @@ export class LoginComponent implements OnInit {
   submit() {
     this.auth.login(this.form.value.email, this.form.value.password).subscribe({
       next: (_val) => {
-        this.router.navigate(['/home'], { queryParams: { loggedin: 'success' } })
+        // If the login request is successful, clear the errors and navigate to the home page
+        this.errors = [];
+        this.router.navigate(['/home/dashboard'], { queryParams: { loggedin: 'success' } });
+      },
+      error: (err) => {
+        // If there is an error, show the errors
         this.errors = this.auth.errors;
-
         if (this.errors.length > 0) {
           for (const i of this.errors) {
-            console.log(i)
-            this.openSnackBar(i.error.non_field_errors, 'X')
+            this.openSnackBar(i.error.non_field_errors, 'X');
           }
-
         }
       }
     });
-    
   }
+  
   emaiErrors() {
     return this.form.get('email')!.hasError('required') ? 'This field is required' :
       this.form.get('email')!.hasError('pattern') ? 'Not a valid email address' :''
