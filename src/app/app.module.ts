@@ -19,7 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatDividerModule} from '@angular/material/divider';
@@ -34,6 +34,11 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CreateInviteComponent } from './components/dashboard/invites/create/create.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CreateadminComponent } from './components/dashboard/createadmin/createadmin.component';
+import { TokenRefreshInterceptor } from './services/token-refresh.interceptor';
+import { AdmindetailsComponent } from './components/dashboard/admindetails/admindetails.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,9 @@ import { CreateInviteComponent } from './components/dashboard/invites/create/cre
     CompaniesComponent,
     IpComponent,
     CreateComponent,
-    CreateInviteComponent
+    CreateInviteComponent,
+    CreateadminComponent,
+    AdmindetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -70,12 +77,18 @@ import { CreateInviteComponent } from './components/dashboard/invites/create/cre
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-    JwtHelperService],
+    JwtHelperService,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenRefreshInterceptor,
+      multi: true,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -56,3 +56,10 @@ export interface Invites  {
     "accepted": boolean,
     "used": boolean
 }
+
+export interface IpAddress {
+    "id": string,
+    "ip_address": string,
+    "verified": boolean,
+    "account": string
+}

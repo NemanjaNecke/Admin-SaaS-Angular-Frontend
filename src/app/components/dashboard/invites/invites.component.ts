@@ -15,14 +15,17 @@ export class InvitesComponent implements OnInit {
   invites: Invites[] = []
   admins: Admin[] = []
   newInvite!: any;
+  loading = true;
   constructor(private invite: InviteService,
     public adminView: ViewAdminService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,){}
 
   ngOnInit(): void {
+    this.loading = true;
     this.invite.getData().subscribe((res)=>{
       this.invites = res;
+      this.loading = false;
     })
     this.adminView.getData().subscribe((res)=>{
       this.admins = res;
@@ -40,22 +43,23 @@ export class InvitesComponent implements OnInit {
       if(result){
            this.newInvite = result;
       this.createInvite(this.newInvite);
-      // setTimeout(() => {
-      //   this.refreshPage()
-      // }, 3500);
-
     }
       }
    )
   }
   createInvite(data:any) {
+    this.loading = true;
     this.invite.create(data).subscribe((_res)=>{
-      this.openSnackBar('Invite Created! Refreshing page in a few seconds', 'X')
+      this.openSnackBar('Invite Created!', 'X')
+      this.invite.getData().subscribe((res)=>{
+        this.invites = res;
+        this.loading = false;
+      })
     })
   }
   delete(id:any){
     this.invite.delete(id).subscribe((res)=>{
-      this.openSnackBar('Invite Deleted! Refreshing page in a few seconds', 'X')
+      this.openSnackBar('Invite Deleted!', 'X')
     })
   }
 }

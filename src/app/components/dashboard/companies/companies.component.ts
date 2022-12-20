@@ -12,14 +12,15 @@ import { CreateComponent } from './create/create.component';
   styleUrls: ['./companies.component.css']
 })
 export class CompaniesComponent implements OnInit {
-
+  loading = true;
   companies: Company[] = []
   admins: Admin[] = []
   newCompany!: Company;
+  active!: boolean
   constructor(private comp: CompanyService,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog,
-    public adminView: ViewAdminService) {
+    private dialog: MatDialog,
+    private adminView: ViewAdminService) {
 
   }
   openSnackBar(message: string, action: string) {
@@ -28,6 +29,7 @@ export class CompaniesComponent implements OnInit {
   ngOnInit() {
     this.comp.getData().subscribe((res) => {
       this.companies = res;
+      this.loading = false;
     })
     this.adminView.getData().subscribe((res)=>{
       this.admins = res;
@@ -36,25 +38,43 @@ export class CompaniesComponent implements OnInit {
   refreshPage() {
     window.location.reload();
   }
+  checkActive(id:any){
+    return this.active = id;
+  }
   deactivate(name:any){
-    this.comp.deactivateInstance(name).subscribe(data => {
+    
+    if(this.active){
+      this.loading = true;
+this.comp.deactivateInstance(name).subscribe(data => {
       this.openSnackBar('Deactivated company', 'X')
       
-      setTimeout(() => {
-        this.refreshPage()
-      }, 3000);
-
+      this.comp.getData().subscribe((res)=>{
+        this.companies = res;
+        this.loading = false;
+      })
     })
+    }else {
+      this.openSnackBar('Company alread inactive', 'X')
+    }
+    
   }
   activate(name:any){
-    this.comp.activateInstance(name).subscribe(data => {
+    
+    if(!this.active){
+      this.loading = true
+      console.log(this.active)
+      this.comp.activateInstance(name).subscribe(data => {
       this.openSnackBar('Activated company', 'X')
       
-      setTimeout(() => {
-        this.refreshPage()
-      }, 3000);
-
+      this.comp.getData().subscribe((res)=>{
+        this.companies = res;
+        this.loading = false;
+      })
     })
+    }else {
+      this.openSnackBar('Company alread active', 'X')
+    }
+    
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateComponent, {
@@ -75,7 +95,12 @@ export class CompaniesComponent implements OnInit {
   }
   createCompany(data:any) {
     this.comp.create(data).subscribe((_res)=>{
-      this.openSnackBar('Company Created! Refreshing page in a few seconds', 'X')
+      this.openSnackBar('Company Created!', 'X')
+      this.loading = true;
+      this.comp.getData().subscribe((res)=>{
+        this.companies = res
+        this.loading = false;
+      })
     })
   }
 }

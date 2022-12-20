@@ -1,0 +1,51 @@
+
+<h1 mat-dialog-title>Create Admin User</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-icon matPrefix>person_outline</mat-icon>
+    <mat-label>First Name</mat-label>
+    <input matInput 
+    #first_nameCtrl="ngModel" required
+    type="text" [(ngModel)]="first_name">
+    <mat-error 
+    *ngIf="first_nameCtrl.invalid && (first_nameCtrl.dirty || first_nameCtrl.touched)">
+    First name Required
+</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-icon matPrefix>person_outline</mat-icon>
+    <mat-label>Last Name</mat-label>
+    <input type="text"
+    #last_nameCtrl="ngModel" required 
+    matInput [(ngModel)]="last_name">
+    <mat-error 
+    *ngIf="last_nameCtrl.invalid && (last_nameCtrl.dirty || last_nameCtrl.touched)">
+    Last name Required
+</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-icon matPrefix>email</mat-icon>
+    <mat-label>Email</mat-label>
+    <input type="email" matInput 
+    required #emailCtrl="ngModel" 
+    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+    [(ngModel)]="email">
+    <mat-error *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)" >
+        Email invalid
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-icon matPrefix>lock_outline</mat-icon>
+    <mat-label>Password</mat-label>
+    <input type="password" matInput [(ngModel)]="pass1">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-icon matPrefix>lock_outline</mat-icon>
+    <mat-label>Confirm Password</mat-label>
+    <input type="password" matInput [(ngModel)]="pass2">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onCreate()" cdkFocusInitial>Create</button>
+</div>

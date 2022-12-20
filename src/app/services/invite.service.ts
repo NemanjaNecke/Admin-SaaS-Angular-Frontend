@@ -12,21 +12,13 @@ import { LoginService } from './login.service';
 export class InviteService {
   baseUrl = environment.baseUrl;
   inviteUrl = environment.apipaths.invites
-  token!: any;
-  headers!: any;
-  user!: any
-  constructor(private http: HttpClient, 
-    private loginService: LoginService, 
-    private jwtHelper: JwtHelperService) {
-      this.token = this.loginService.getJwtToken();
-
-this.user = this.jwtHelper.decodeToken(this.token);
-this.headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-    }
+ 
+  constructor(private http: HttpClient, ) {
+  }
 
   public getData(): Observable<any> {
 
-    return this.http.get<{[key:number]:Invites}>(this.baseUrl + this.inviteUrl, { headers: this.headers })
+    return this.http.get<{[key:number]:Invites}>(this.baseUrl + this.inviteUrl)
     .pipe(
       map((responseData) => {
         const invites:Invites[] = [];
@@ -40,9 +32,9 @@ this.headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
 }
 
 create(data:any){
-  return this.http.post<Invites>(this.baseUrl+this.inviteUrl, data, { headers:this.headers})
+  return this.http.post<Invites>(this.baseUrl+this.inviteUrl, data)
 }
 delete(id:any){
-  return this.http.delete(this.baseUrl+this.inviteUrl + id +'/',  { headers:this.headers})
+  return this.http.delete(this.baseUrl+this.inviteUrl + id +'/')
 }
 }

@@ -1,5 +1,8 @@
 <div class="grid-container">
     <h1 class="mat-h1">Companies</h1> 
+    <div class="spinner-container" *ngIf="loading">
+      <mat-spinner></mat-spinner>
+  </div>
     <button mat-raised-button color="primary" (click)="openDialog()">Create a Company</button>
     <mat-grid-list cols="2" rowHeight="350px">
       <mat-grid-tile *ngFor="let c of companies" colspan="2" rowspan="1">
@@ -11,8 +14,10 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item (click)="activate(c.name)">Activate</button>
-                <button mat-menu-item (click)="deactivate(c.name)">Deactivate</button>
+                <button mat-menu-item (click)="checkActive(c.is_active)" 
+                (click)="activate(c.name)">Activate</button>
+                <button mat-menu-item (click)="checkActive(c.is_active)"
+                (click)="deactivate(c.name)">Deactivate</button>
               </mat-menu>
             </mat-card-title>
           </mat-card-header>
@@ -46,7 +51,12 @@
                         Is this company Active
                       </mat-panel-title>
                       <mat-panel-description>
-                          {{c.is_active}}
+                        <ng-container *ngIf="c.is_active">
+                          <mat-icon>check</mat-icon>
+                        </ng-container>
+                        <ng-container *ngIf="!c.is_active">
+                          <mat-icon>cancel</mat-icon>
+                        </ng-container>
                       </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p>Boolean value that represents if this company is active</p>

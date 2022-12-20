@@ -12,7 +12,7 @@ import { LoginService } from './login.service';
 export class RegistrationService {
   private baseUrl = environment.baseUrl;
   private registrationUrl = environment.registrationpaths.registration;
-  
+
   public errors: any = []; 
   name: string = ''
   registered: boolean = false;
@@ -49,18 +49,5 @@ export class RegistrationService {
       })
       );
   }
-  registerAdmin(email: string, password1: string, password2: string, first_name: string, last_name: string,  params: string){
-    return this.http.post(this.baseUrl + this.registrationUrl + params, {email, password1, password2, first_name, last_name })
-    .pipe(shareReplay()).pipe(
-      map((response) => {
-        if(response)
-        this.registered = true;
-        }
-      ), catchError((error) => {
 
-        this.errors.push(Object.entries(error.error).join('\n'))
-        return this.errors;
-      })
-      );
-  }
 }

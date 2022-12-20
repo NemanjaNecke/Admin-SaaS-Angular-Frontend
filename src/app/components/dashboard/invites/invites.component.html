@@ -1,5 +1,8 @@
 <div class="grid-container">
     <h1 class="mat-h1">Invites</h1> 
+    <div class="spinner-container" *ngIf="loading">
+      <mat-spinner></mat-spinner>
+  </div>
     <button mat-raised-button color="primary" (click)="openDialog()">Create an Invite</button>
     <mat-grid-list cols="2" rowHeight="350px">
       <mat-grid-tile *ngFor="let i of invites" colspan="2" rowspan="1">
@@ -45,7 +48,12 @@
                         Is this invite Active
                       </mat-panel-title>
                       <mat-panel-description>
-                          {{i.used}}
+                          <ng-container *ngIf="i.used">
+                            <mat-icon>check</mat-icon>
+                          </ng-container>
+                          <ng-container *ngIf="!i.used">
+                            <mat-icon>cancel</mat-icon>
+                          </ng-container>
                       </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p>Boolean value that represents if this invite is active and user is still unregisterd</p>
@@ -56,7 +64,12 @@
                         Is invite accepted
                       </mat-panel-title>
                       <mat-panel-description>
-                          {{i.accepted}}
+                        <ng-container *ngIf="i.accepted">
+                          <mat-icon>check</mat-icon>
+                        </ng-container>
+                        <ng-container *ngIf="!i.accepted">
+                          <mat-icon>cancel</mat-icon>
+                        </ng-container>
                       </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p>Boolean value that represents if the user actually registered</p>
