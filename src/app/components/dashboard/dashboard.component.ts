@@ -81,7 +81,6 @@ export class DashboardComponent implements OnInit{
     const dialogRef = this.dialog.open(AdmindetailsComponent, {
       data: {admin: id, companies:this.companies},
     });
-    console.log(id)
     dialogRef.afterClosed().subscribe(result => {
       if(result){
           

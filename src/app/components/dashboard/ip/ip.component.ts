@@ -9,11 +9,14 @@ import { IpDataSource } from './datasource';
   styleUrls: ['./ip.component.css']
 })
 export class IpComponent implements OnInit{
+  loading!: boolean;
   dataSource!: IpDataSource;
   constructor(private ips: IpaddressService,){}
   ngOnInit(){
     this.dataSource = new IpDataSource(this.ips);
-        this.dataSource.loadLessons();
-    
+    this.dataSource.loadLessons();
+    this.dataSource.loading$.subscribe((res)=>{
+      this.loading = res
+    })
   }
 }
