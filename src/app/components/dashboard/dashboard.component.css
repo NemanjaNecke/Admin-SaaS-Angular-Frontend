@@ -10,6 +10,10 @@
   bottom: 15px;
 }
 
+.mat-mdc-card-content {
+  padding: 0;
+}
+
 .more-button {
   position: absolute;
   top: 5px;

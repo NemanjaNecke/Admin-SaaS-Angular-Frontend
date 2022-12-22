@@ -49,17 +49,32 @@ export class InvitesComponent implements OnInit {
   }
   createInvite(data:any) {
     this.loading = true;
-    this.invite.create(data).subscribe((_res)=>{
+    this.invite.create(data).subscribe( {
+        next: (_res) => {
       this.openSnackBar('Invite Created!', 'X')
+      this.invite.getData().subscribe((res) => {
+        this.invites = res;
+        this.loading = false;
+      })
+    },
+    error: (e) => {
+      this.openSnackBar(e, 'X')
+      this.invite.getData().subscribe((res) => {
+        this.invites = res;
+        this.loading = false;
+      })
+    }
+    } 
+   )
+  }
+  delete(id:any){
+    this.loading = true
+    this.invite.delete(id).subscribe((res)=>{
+      this.openSnackBar('Invite Deleted!', 'X')
       this.invite.getData().subscribe((res)=>{
         this.invites = res;
         this.loading = false;
       })
-    })
-  }
-  delete(id:any){
-    this.invite.delete(id).subscribe((res)=>{
-      this.openSnackBar('Invite Deleted!', 'X')
     })
   }
 }

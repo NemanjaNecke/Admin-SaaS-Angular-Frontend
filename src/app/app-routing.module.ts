@@ -7,6 +7,7 @@ import { IpComponent } from './components/dashboard/ip/ip.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavComponent } from './components/nav/nav.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { IsLoggedGuard } from './is-logged.guard';
 import { LoginGuard } from './login.guard';
@@ -36,19 +37,18 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'companies', component: CompaniesComponent },
       { path: 'invites', component: InvitesComponent },
-      { path: 'ip-address', component: IpComponent }
+      { path: 'ip-address', component: IpComponent },
+
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  }
     ]
   },
   {
     path: 'not-found',
     component: NotFoundComponent
   },
-
-//   {
-//     path: 'profile',
-//     component: ProfileComponent,
-//     canActivate: [LoginGuard]
-//   },
 // {
 //   path: 'changePassword',
 //   component: ChangepasswordComponent,

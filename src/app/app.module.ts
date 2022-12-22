@@ -39,6 +39,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CreateadminComponent } from './components/dashboard/createadmin/createadmin.component';
 import { TokenRefreshInterceptor } from './services/token-refresh.interceptor';
 import { AdmindetailsComponent } from './components/dashboard/admindetails/admindetails.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatSortModule} from '@angular/material/sort';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,9 @@ import { AdmindetailsComponent } from './components/dashboard/admindetails/admin
     CreateComponent,
     CreateInviteComponent,
     CreateadminComponent,
-    AdmindetailsComponent
+    AdmindetailsComponent,
+    ProfileComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -77,7 +83,11 @@ import { AdmindetailsComponent } from './components/dashboard/admindetails/admin
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSortModule,
     MatTableModule,
+    MatChipsModule,
+    MatTreeModule,
+    
     MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,

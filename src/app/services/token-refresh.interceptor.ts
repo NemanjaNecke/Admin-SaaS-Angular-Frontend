@@ -41,11 +41,15 @@ export class TokenRefreshInterceptor implements HttpInterceptor {
           return this.handleRefreshToken(request, next);}
         if (errordata.status === 401) {
           // need to implement logout
+          this.isRefreshing = true
           return this.handleRefreshToken(request, next);
         }
         if(errordata.status === 400){
          
           return throwError(() => new Error(Object.entries(errordata.error).join('\n')))
+        }
+        if(errordata.status === 403){
+          return throwError(() => new Error(Object.entries(errordata.error).join('\n'))) 
         }
         return throwError(() => new Error(Object.entries(errordata.error).join('\n')));
       })

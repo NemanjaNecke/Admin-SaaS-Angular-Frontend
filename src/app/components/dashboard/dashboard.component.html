@@ -102,6 +102,44 @@
         </mat-card-content>
       </mat-card>
      </ng-container>
+     <ng-container *ngIf="card.type == 'ip'">
+      <mat-card class="dashboard-card">
+         <mat-card-header>
+           <mat-card-title>
+             {{card.title}}
+             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+               <mat-icon>more_vert</mat-icon>
+             </button>
+             <mat-menu #menu="matMenu" xPosition="before">
+               <button mat-menu-item routerLink="/home/ip-address">Check IP</button>
+             </mat-menu>
+           </mat-card-title>
+         </mat-card-header>
+         <mat-card-content class="dashboard-card-content">
+          <table matSort (matSortChange)="sortData($event)">
+            <tr>
+              <th mat-sort-header="id">UID</th>
+              <th mat-sort-header="ip_address">IP address</th>
+              <th mat-sort-header="verified">Verified</th>
+              <th mat-sort-header="account">Account</th>
+            </tr>
+          
+            <tr *ngFor="let el of sortedData">
+              <td>{{el.id}}</td>
+              <td>{{el.ip_address}}</td>
+              <td>
+                <ng-container *ngIf="el.verified">
+                  <mat-icon>check</mat-icon>
+                </ng-container>
+                <ng-container *ngIf="!el.verified">
+                  <mat-icon>cancel</mat-icon>
+                </ng-container></td>
+              <td>{{el.account}}</td>
+            </tr>
+          </table>
+         </mat-card-content>
+       </mat-card>
+     </ng-container>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
