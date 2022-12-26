@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { catchError } from 'rxjs';
 import { Admin, Company } from 'src/app/models/user.model';
 import { CompanyService } from 'src/app/services/company.service';
 import { ViewAdminService } from 'src/app/services/view-admin.service';
@@ -20,14 +22,24 @@ export class CompaniesComponent implements OnInit {
   constructor(private comp: CompanyService,
     private _snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private adminView: ViewAdminService) {
+    private adminView: ViewAdminService,
+    private router: Router) {
 
   }
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
   ngOnInit() {
-    this.comp.getData().subscribe((res) => {
+    this.comp.getData().pipe(
+      catchError((error) => {
+        // Handle the error
+
+        this.openSnackBar('Welcome user!', 'X')
+        this.router.navigate(['/home/profile'])
+        // Return an empty array as a fallback
+       return error
+      })
+    ).subscribe((res) => {
       this.companies = res;
       this.loading = false;
     })

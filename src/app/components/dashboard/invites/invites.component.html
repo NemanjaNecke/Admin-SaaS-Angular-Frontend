@@ -4,10 +4,17 @@
       <mat-spinner></mat-spinner>
   </div>
     <button mat-raised-button color="primary" (click)="openDialog()">Create an Invite</button>
-    <mat-grid-list cols="2" rowHeight="350px">
-      <mat-grid-tile *ngFor="let i of invites" colspan="2" rowspan="1">
+    <mat-grid-list cols="2" *ngFor="let i of invites;let index = index"
+     [rowHeight]="selectedRow === index ? '360px' : '58px'">
+      <mat-grid-tile  
+      colspan="2" rowspan="1">
         <mat-card class="dashboard-card">
-          <mat-card-header>
+          <mat-accordion multi>
+            <mat-expansion-panel (opened)="selectedRow = index;"
+            (closed)="selectedRow = null; ">
+              <mat-expansion-panel-header>
+                <!-- Ubaciti samo panele prosirene bez grida -->
+          <mat-card-header><mat-panel-title>
             <mat-card-title>
               Invite for {{i.email}}
               <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
@@ -17,7 +24,11 @@
                 <button mat-menu-item (click)="delete(i.id)">Remove</button>
               </mat-menu>
             </mat-card-title>
+          </mat-panel-title>
           </mat-card-header>
+        </mat-expansion-panel-header>
+                <mat-panel-description class="fullpanel">
+               
           <mat-card-content class="dashboard-card-content">
             <mat-accordion>
                 <mat-expansion-panel>
@@ -76,6 +87,9 @@
                   </mat-expansion-panel>
               </mat-accordion>
           </mat-card-content>
+         </mat-panel-description>
+            </mat-expansion-panel>
+         </mat-accordion>
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>

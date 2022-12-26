@@ -13,7 +13,6 @@ export class AdmindetailsComponent {
     public dialogRef: MatDialogRef<AdmindetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data:any,
   ) {
-    console.log(data)
   } 
   first_name!: string;
   last_name!: string;

@@ -6,10 +6,20 @@
     <mat-card-title>Welcome {{profile.first_name}} {{profile.last_name}}</mat-card-title>
 </mat-card-header>
 
-    <mat-card-content>
-        Your email is {{profile.email}}
-        Your company is {{profile.company}}
-        Your id is {{profile.id}}
+    <mat-card-content class="centered">
+        <div class="part"> Your email is {{profile.email}}</div>
+       
+        <mat-divider></mat-divider>
+       <div class="part">Your company is {{profile.company}}</div> 
+        <mat-divider></mat-divider>
+        <div class="part">Your id is {{profile.id}}</div>
+        
+        <mat-divider></mat-divider>
+       <div class="part last"><span class="last-text">Change your password here - </span>  
+         <button mat-fab color="warn" (click)="openDialog()">
+            <mat-icon>pin</mat-icon>
+          </button></div> 
+      
     </mat-card-content>
 
 </mat-card>

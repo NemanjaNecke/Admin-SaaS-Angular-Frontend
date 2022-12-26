@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { catchError } from 'rxjs';
 import { Admin, Invites } from 'src/app/models/user.model';
 import { InviteService } from 'src/app/services/invite.service';
 import { ViewAdminService } from 'src/app/services/view-admin.service';
@@ -16,14 +18,28 @@ export class InvitesComponent implements OnInit {
   admins: Admin[] = []
   newInvite!: any;
   loading = true;
+
+  selectedRow!: any;
+  selectedRowHeight = '58px';
+
   constructor(private invite: InviteService,
     public adminView: ViewAdminService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar,){}
+    private _snackBar: MatSnackBar,
+    private router: Router){
+    }
 
   ngOnInit(): void {
     this.loading = true;
-    this.invite.getData().subscribe((res)=>{
+    this.invite.getData().pipe(
+      catchError((error) => {
+        // Handle the error
+        this.openSnackBar('Welcome user!', 'X')
+        this.router.navigate(['/home/profile'])
+        // Return an empty array as a fallback
+       return error
+      })
+    ).subscribe((res)=>{
       this.invites = res;
       this.loading = false;
     })
@@ -77,4 +93,5 @@ export class InvitesComponent implements OnInit {
       })
     })
   }
+
 }

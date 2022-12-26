@@ -10,6 +10,9 @@
   }
 mat-card-content {
     padding: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
   form {
     width: 100%;
@@ -22,13 +25,13 @@ mat-card-content {
     justify-content: center;
   }
   mat-form-field {
-    width: 100%;
+    width: 80%;
   }
 
-  mat-card-title, mat-card-content {
+  mat-card-title {
     display: flex;
     justify-content: center;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
   }
 
   /* .error {

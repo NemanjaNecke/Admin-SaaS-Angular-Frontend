@@ -43,6 +43,10 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatSortModule} from '@angular/material/sort';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ChangepasswordComponent } from './components/profile/changepassword/changepassword.component';
+import { ResendEmailVerificationComponent } from './components/register/resend-email-verification/resend-email-verification.component';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { ResetpasswordComponent } from './components/login/resetpassword/resetpassword.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +64,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     CreateadminComponent,
     AdmindetailsComponent,
     ProfileComponent,
+    ChangepasswordComponent,
+    ResendEmailVerificationComponent,
+    ResetpasswordComponent,
 
   ],
   imports: [
@@ -87,7 +94,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatTableModule,
     MatChipsModule,
     MatTreeModule,
-    
+    MatBottomSheetModule,
     MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,

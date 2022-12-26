@@ -1,0 +1,18 @@
+.centered{
+    text-align: center;
+}
+
+.part {
+    padding: 20px;
+    margin: 2%;
+}
+
+.last {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.last-text {
+    margin-right: 1%;
+}

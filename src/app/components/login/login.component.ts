@@ -3,6 +3,10 @@ import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { MatDialog } from '@angular/material/dialog';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private auth: LoginService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
   ) { }
 
   form: FormGroup = new FormGroup({
@@ -44,15 +49,35 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-  
+
   emaiErrors() {
     return this.form.get('email')!.hasError('required') ? 'This field is required' :
-      this.form.get('email')!.hasError('pattern') ? 'Not a valid email address' :''
+      this.form.get('email')!.hasError('pattern') ? 'Not a valid email address' : ''
   }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ResetpasswordComponent, {
+      data: '',
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+          
+      this.auth.resetPasswordEmail(result.email).pipe(
+        catchError((error) => {
+          this.openSnackBar(error, 'X')
+         return error
+        })
+      ).subscribe((res:any)=>{
+        this.openSnackBar(res.detail, 'X')
+// zavrsi password reset na backend, zavrsi izmeni admina, kreni sa novim views za ovo
+      });
+    }
+      }
+   )
+  }
   getErrorPassword() {
     return this.form.get('password')!.hasError('required') ? 'This field is required' : ''
-      
+
   }
   ngOnInit() {
 

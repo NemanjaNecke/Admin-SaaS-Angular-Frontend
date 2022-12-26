@@ -20,6 +20,7 @@ export class LoginService {
   private verToken = environment.loginpaths.verifyToken;
   private refToken = environment.loginpaths.refreshToken;
   private refPass = environment.loginpaths.refreshPass;
+  private resetPass = environment.loginpaths.resetPass;
   // http options used for making API calls
   private httpOptions: any;
 
@@ -117,7 +118,19 @@ export class LoginService {
   getRefreshToken() {
     return `{"refresh": "${localStorage.getItem('refresh_tkn')}"}`
   }
-
+resetPasswordEmail(email:any) {
+  return this.http.post(this.baseUrl+this.resetPass, {email}).pipe(
+    map(
+      (response) =>{
+        return response;
+      }
+    ),
+    catchError((error) => {
+    console.log(error);
+    this.errors.push(error)
+    return this.errors;
+  }))
+}
   resetPassword(new_password1: string, new_password2: string){
     return this.http.post(this.baseUrl + this.refPass, {new_password1, new_password2})
     .pipe(
@@ -132,5 +145,6 @@ export class LoginService {
       return this.errors;
     }))
   }
+
 
 }

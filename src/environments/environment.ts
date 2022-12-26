@@ -16,7 +16,8 @@ export enum ApiPaths {
     logout = 'auth/logout/',
     verifyToken = 'auth/token/verify/',
     refreshToken = 'auth/token/refresh/',
-    refreshPass = 'auth/password/change/'
+    refreshPass = 'auth/password/change/',
+    resetPass = 'auth/password/reset/'
   }
   export const environment = {
     production: false,

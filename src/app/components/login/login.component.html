@@ -29,15 +29,15 @@
     </mat-form-field>
   </p>
 
-  <!-- <p *ngIf="errors.length > 0" class="error">
-    
-    {{errors.error.non_field_errors}}
-  </p> -->
-
   <div class="button">
     <button type="submit" mat-raised-button>Login</button>
   </div>
 
 </form>
+<mat-divider></mat-divider>
+  <span>
+    If you forgot your password, please click 
+    <button mat-button color="primary" (click)="openDialog()">here</button>
+  </span>
 </mat-card-content>
 </mat-card>

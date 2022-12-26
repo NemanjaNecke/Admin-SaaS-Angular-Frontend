@@ -10,6 +10,7 @@ import { User } from '../models/user.model';
 export class ProfileService {
   baseUrl = environment.baseUrl
   account = environment.apipaths.account
+  refPass = environment.loginpaths.refreshPass
   constructor(private http: HttpClient) { }
 
   getData():Observable<any>{
@@ -17,4 +18,10 @@ export class ProfileService {
       return response
     })
   }
+
+  changepassword(new_password1: string, new_password2: string){
+ 
+      return this.http.post(this.baseUrl + this.refPass, {new_password1, new_password2})
+  }
+  
 }
