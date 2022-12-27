@@ -47,6 +47,7 @@ import { ChangepasswordComponent } from './components/profile/changepassword/cha
 import { ResendEmailVerificationComponent } from './components/register/resend-email-verification/resend-email-verification.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { ResetpasswordComponent } from './components/login/resetpassword/resetpassword.component';
+import { ConfirmPasswordResetComponent } from './components/login/confirm-password-reset/confirm-password-reset.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ResetpasswordComponent } from './components/login/resetpassword/resetpa
     ChangepasswordComponent,
     ResendEmailVerificationComponent,
     ResetpasswordComponent,
+    ConfirmPasswordResetComponent,
 
   ],
   imports: [

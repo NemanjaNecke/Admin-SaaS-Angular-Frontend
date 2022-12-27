@@ -21,6 +21,7 @@ export class LoginService {
   private refToken = environment.loginpaths.refreshToken;
   private refPass = environment.loginpaths.refreshPass;
   private resetPass = environment.loginpaths.resetPass;
+  private resetPassConfirm = environment.loginpaths.resetPassConfirm;
   // http options used for making API calls
   private httpOptions: any;
 
@@ -131,20 +132,19 @@ resetPasswordEmail(email:any) {
     return this.errors;
   }))
 }
-  resetPassword(new_password1: string, new_password2: string){
-    return this.http.post(this.baseUrl + this.refPass, {new_password1, new_password2})
-    .pipe(
-      map(
-        (response) =>{
-          return response;
-        }
-      ),
-      catchError((error) => {
-      console.log(error);
-      this.errors.push(error)
-      return this.errors;
-    }))
-  }
+resetPasswordConfirm(new_password1: any, new_password2: any, uid: any, token: any){
+  return this.http.post(this.baseUrl+this.resetPassConfirm+uid+'/'+token+'/', {new_password1, new_password2, uid, token}).pipe(
+    map(
+      (response) =>{
+        return response;
+      }
+    ),
+    catchError((error) => {
+    console.log(error);
+    this.errors.push(error)
+    return this.errors;
+  }))
+}
 
 
 }

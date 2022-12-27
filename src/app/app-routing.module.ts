@@ -4,7 +4,9 @@ import { CompaniesComponent } from './components/dashboard/companies/companies.c
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InvitesComponent } from './components/dashboard/invites/invites.component';
 import { IpComponent } from './components/dashboard/ip/ip.component';
+import { ConfirmPasswordResetComponent } from './components/login/confirm-password-reset/confirm-password-reset.component';
 import { LoginComponent } from './components/login/login.component';
+import { ResetpasswordComponent } from './components/login/resetpassword/resetpassword.component';
 import { NavComponent } from './components/nav/nav.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -27,6 +29,10 @@ const routes: Routes = [
     path: 'auth/register/:uid/:token',
     component: RegisterComponent,
     //canActivate: [RegistrationGuardGuard]
+  },
+  {
+    path: 'auth/password/reset/confirm/:uid/:token',
+    component: ConfirmPasswordResetComponent
   }
   ,
   {
