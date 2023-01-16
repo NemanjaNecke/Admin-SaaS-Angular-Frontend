@@ -18,7 +18,7 @@ export class CreateadminComponent {
   ) {}
   onCreate(){
     this.dialogRef.close({ first_name: this.first_name, 
-      last_name: this.first_name, 
+      last_name: this.last_name, 
       email: this.email, pass1: this.pass1, pass2: this.pass2 });
   }
   onNoClick(): void {

@@ -8,9 +8,11 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class ProfileService {
-  baseUrl = environment.baseUrl
-  account = environment.apipaths.account
-  refPass = environment.loginpaths.refreshPass
+  baseUrl = environment.baseUrl;
+  account = environment.apipaths.account;
+  accounts = environment.apipaths.allUsers;
+  refPass = environment.loginpaths.refreshPass;
+
   constructor(private http: HttpClient) { }
 
   getData():Observable<any>{
@@ -21,7 +23,11 @@ export class ProfileService {
 
   changepassword(new_password1: string, new_password2: string){
  
-      return this.http.post(this.baseUrl + this.refPass, {new_password1, new_password2})
+      return this.http.post(this.baseUrl + this.refPass, {new_password1, new_password2});
   }
   
+  getListAccounts() {
+    return this.http.get<User[]>(this.baseUrl + this.accounts);
+  }
+
 }

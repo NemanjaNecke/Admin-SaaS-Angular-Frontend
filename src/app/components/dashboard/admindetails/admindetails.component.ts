@@ -16,12 +16,17 @@ export class AdmindetailsComponent {
   } 
   first_name!: string;
   last_name!: string;
-  onCreate(){
-    this.dialogRef.close({ first_name: this.first_name, 
-      last_name: this.first_name, 
-       });
+  selectedCompany!: string;
+  onUpdate(){
+    this.dialogRef.close({ 
+      first_name: this.first_name, 
+      last_name: this.last_name, 
+      company: this.selectedCompany
+    });
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
 }
+// stavi spinner na svaki card
+// napravi task view

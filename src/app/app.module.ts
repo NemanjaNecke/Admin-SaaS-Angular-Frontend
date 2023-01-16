@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -48,7 +48,18 @@ import { ResendEmailVerificationComponent } from './components/register/resend-e
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { ResetpasswordComponent } from './components/login/resetpassword/resetpassword.component';
 import { ConfirmPasswordResetComponent } from './components/login/confirm-password-reset/confirm-password-reset.component';
-
+import { NgChartsModule } from 'ng2-charts';
+import { AnalyticsComponent } from './components/dashboard/task-charts/analytics/analytics.component';
+import { AnalyticsSalesComponent } from './components/dashboard/task-charts/analytics-sales/analytics-sales.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ApexchartsComponent } from './components/dashboard/task-charts/apexcharts/apexcharts.component';
+import { ApexpriorityComponent } from './components/dashboard/task-charts/apexpriority/apexpriority.component';
+import { TasksComponent } from './components/tasks/tasks.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { TDetailsComponent } from './components/tasks/t-details/t-details.component';
+import { TaskCreateComponent } from './components/tasks/task-create/task-create.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,9 +80,16 @@ import { ConfirmPasswordResetComponent } from './components/login/confirm-passwo
     ResendEmailVerificationComponent,
     ResetpasswordComponent,
     ConfirmPasswordResetComponent,
-
+    AnalyticsComponent,
+    AnalyticsSalesComponent,
+    ApexchartsComponent,
+    ApexpriorityComponent,
+    TasksComponent,
+    TDetailsComponent,
+    TaskCreateComponent,
   ],
   imports: [
+    NgChartsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -98,9 +116,15 @@ import { ConfirmPasswordResetComponent } from './components/login/confirm-passwo
     MatTreeModule,
     MatBottomSheetModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
+    NgApexchartsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    DragDropModule,
+    MatTooltipModule,
+    MatPaginatorModule,
+    MatDatepickerModule
   ],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,{

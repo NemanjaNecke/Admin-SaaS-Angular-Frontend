@@ -16,7 +16,7 @@ export class ViewAdminService {
   registered!: boolean;
   errors: any;
   constructor(private http: HttpClient, ) {
- // Get the JWT token from the LoginService
+
 
     }
 
@@ -47,5 +47,9 @@ export class ViewAdminService {
         return this.errors;
       })
       );
+  }
+
+  updateAdmin(id:string, formData:{}){
+    return this.http.patch(this.baseUrl+this.adminUrl+ id, formData);
   }
 }

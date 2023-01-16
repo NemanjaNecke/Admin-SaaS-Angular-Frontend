@@ -13,7 +13,10 @@
        <div class="part">Your company is {{profile.company}}</div> 
         <mat-divider></mat-divider>
         <div class="part">Your id is {{profile.id}}</div>
-        
+        <mat-divider></mat-divider>
+        <div class="part">
+            See your tasks <button mat-button color="primary" routerLink="/home/tasks"> here <mat-icon>list_alt</mat-icon></button>
+        </div>
         <mat-divider></mat-divider>
        <div class="part last"><span class="last-text">Change your password here - </span>  
          <button mat-fab color="warn" (click)="openDialog()">

@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Update Admin User and add Company</h1>
+<h1 mat-dialog-title>Update Admin User and add a Company</h1>
 <div mat-dialog-content>
     <mat-card>
         <mat-card-content>{{data['admin'].email}}</mat-card-content>
@@ -17,17 +17,21 @@
     #last_nameCtrl="ngModel" 
     matInput [(ngModel)]="last_name" [placeholder]="data['admin'].last_name">
   </mat-form-field>
-
-    <mat-icon>admin_panel_settings</mat-icon>
-    <mat-list>
-    <mat-list-item *ngFor="let a of data['companies']">
+   <mat-icon>admin_panel_settings</mat-icon>
+<mat-form-field appearance="fill">
+     <mat-label>Change admin company</mat-label>
+    <mat-select [(ngModel)]="selectedCompany">
+      <mat-option>Clear</mat-option>
+    <mat-option *ngFor="let a of data['companies']" [value]="a.name">
         {{a.name}}
-    </mat-list-item>
-    </mat-list>
+    </mat-option>
+    </mat-select>
+</mat-form-field>
+ 
 
 
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button (click)="onCreate()" cdkFocusInitial>Update details</button>
+  <button mat-button (click)="onUpdate()" cdkFocusInitial>Update details</button>
 </div>

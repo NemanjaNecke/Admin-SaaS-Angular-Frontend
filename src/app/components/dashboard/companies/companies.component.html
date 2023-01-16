@@ -21,7 +21,7 @@
               </mat-menu>
             </mat-card-title>
           </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
+          <mat-card-content class="dashboard-card-content company">
             <mat-accordion>
                 <mat-expansion-panel>
                   <mat-expansion-panel-header>
@@ -71,6 +71,19 @@
                       </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p>Date value that represents for how long will this company stay active. Default value is 90 days.</p>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Accounts
+                      </mat-panel-title>
+                      <mat-panel-description>
+                          Accounts linked to company
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-list *ngFor="let a of c.accounts">
+                      <mat-list-item>{{a}}</mat-list-item>
+                    </mat-list>
                   </mat-expansion-panel>
               </mat-accordion>
           </mat-card-content>

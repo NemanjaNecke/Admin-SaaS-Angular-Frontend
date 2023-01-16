@@ -1,0 +1,11 @@
+.mat-mdc-dialog-content.mdc-dialog__content {
+    width: 500px;
+    height: 650px;
+}
+::ng-deep .mat-grid-tile-content{
+
+    flex-direction: column;
+}
+h3 {
+    color:black;
+}

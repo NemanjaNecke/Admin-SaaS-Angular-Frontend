@@ -2,3 +2,43 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+mat-sidenav-content::-webkit-scrollbar {
+    width: 7px;
+    background-color: transparent;
+}
+mat-sidenav-content::-webkit-scrollbar-thumb{
+    background-color: #e53935;
+    width: 30px;
+    border-radius: 10%;
+}
+.mat-mdc-dialog-content::-webkit-scrollbar {
+    width: 7px;
+    background-color: transparent;
+}
+.mat-mdc-dialog-content::-webkit-scrollbar-thumb{
+    background-color: #e53935;
+    width: 30px;
+    border-radius: 10%;
+}
+.mat-mdc-card-content::-webkit-scrollbar {
+    width: 7px;
+    background-color: transparent;
+}
+.mat-mdc-card-content::-webkit-scrollbar-thumb{
+    background-color: #e53935;
+    width: 30px;
+    border-radius: 10%;
+}
+
+.chartContainer canvas {
+    height: 80%;
+    width: 90%;
+}
+
+.chartContainer{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

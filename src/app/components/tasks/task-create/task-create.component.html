@@ -1,0 +1,108 @@
+<h1 mat-dialog-title 
+cdkDrag cdkDragRootElement=".cdk-overlay-pane" 
+matTooltip="Dialog is draggable"
+cdkDragHandle>Edit Task</h1>
+<div mat-dialog-content>
+  <mat-grid-list cols="2" rowHeight="150px">
+    <mat-grid-tile colspan="2" rowspan="1">
+          <h3>Task description</h3>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput placeholder="Write a task description" [(ngModel)]="description" #descriptionCtrl="ngModel">
+        </textarea>
+  </mat-form-field>
+
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+        <h3 
+        matTooltip="If you don't provide the date it defaults to 1 day from now">Due date</h3>
+  <mat-form-field appearance="fill">
+    <mat-label>Select a due date for the task</mat-label>
+    <input matInput [matDatepicker]="dp3" disabled [(ngModel)]="due_date">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+  </mat-form-field>
+
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+        <h3>Choose the status of the task</h3>
+  <mat-form-field appearance="fill">
+    <mat-label>Select a Task status</mat-label>
+    <mat-select [(ngModel)]="status_choice">
+      <mat-option *ngFor="let s of status" [value]="s.value">{{s.viewValue}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+        <h3>Choose the priority of the task</h3>
+  <mat-form-field appearance="fill">
+    <mat-label>Select a Task Priority</mat-label>
+    <mat-select [(ngModel)]="priority_choice">
+      <mat-option *ngFor="let s of priority" [value]="s.value">{{s.viewValue}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="1" colspan="1">
+      <h3>Select Category</h3>
+<mat-form-field appearance="fill">
+  <mat-label>Select a Task Category</mat-label>
+  <mat-select [(ngModel)]="category_choice">
+    <mat-option *ngFor="let s of category" [value]="s.value">{{s.viewValue}}</mat-option>
+  </mat-select>
+</mat-form-field>
+  </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+        <h3>Notification on</h3>
+  <mat-slide-toggle class="example-margin" 
+  color="warn" [checked]="notification" (change)="toggleChanges($event)">
+    <ng-container *ngIf="notification==true">
+      Notifications are on
+    </ng-container>
+    <ng-container *ngIf="notification==false">
+      Notifications are off
+    </ng-container>
+  </mat-slide-toggle>
+  <mat-form-field matTooltip="If you don't provide the date it defaults to 1 day from now"
+  appearance="fill" *ngIf="notification">
+    <mat-label>Set the notification date</mat-label>
+    <input matInput [matDatepicker]="dp1" disabled [(ngModel)]="notification_date">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="dp1"></mat-datepicker-toggle>
+    <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+  </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+      <h3>Responsible User</h3>
+<mat-form-field appearance="fill">
+  <mat-label>Select user</mat-label>
+  <mat-select [(ngModel)]="user_choice">
+    <mat-option *ngFor="let s of accounts" [value]="s.id">{{s.email}}</mat-option>
+  </mat-select>
+</mat-form-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2" rowspan="2">
+  <h3>Set Value and Currency</h3>
+    <mat-form-field>
+      <mat-label>Set value</mat-label>
+      <input type="number" matInput [(ngModel)]="value">
+      <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=0">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+<mat-form-field appearance="fill">
+<mat-label>Select Currency</mat-label>
+<mat-select [(ngModel)]="currency_choice">
+  <mat-option *ngFor="let s of currency" [value]="s.value">{{s.viewValue}}</mat-option>
+</mat-select>
+</mat-form-field>
+</mat-grid-tile>
+  </mat-grid-list>
+  
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onCreate()" cdkFocusInitial>Save</button>
+</div>

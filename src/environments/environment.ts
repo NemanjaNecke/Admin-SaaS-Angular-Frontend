@@ -2,8 +2,11 @@ export enum ApiPaths {
   companies = 'companies/',
   invites = 'invites/',
   adminusers = 'auth/accounts/admin/',
+  allUsers = 'auth/accounts/all/',
   ipAddress = 'auth/ip-address',
-  account = 'auth/accounts/account/'
+  account = 'auth/accounts/account/',
+  task = 'tasks/',
+  analytcis = 'tasks/analytics'
   }
   
   export enum RegistrationPaths {

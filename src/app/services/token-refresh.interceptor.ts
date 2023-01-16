@@ -12,6 +12,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { RegistrationService } from './registration.service';
+import { ErrorService } from './error.service';
 
 
 
@@ -22,9 +23,9 @@ const jwt = new JwtHelperService();
 @Injectable()
 export class TokenRefreshInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  errors = [];
+  errors = false;
   constructor(
-    private inject: Injector
+    private inject: Injector, private errorService: ErrorService
   ) {}
 
   intercept(request: HttpRequest<any>, 
@@ -40,7 +41,7 @@ export class TokenRefreshInterceptor implements HttpInterceptor {
        if(!authservice.isAuthenticated()){
           return this.handleRefreshToken(request, next);}
         if (errordata.status === 401) {
-          // need to implement logout
+      
           this.isRefreshing = true
           return this.handleRefreshToken(request, next);
         }
@@ -49,7 +50,9 @@ export class TokenRefreshInterceptor implements HttpInterceptor {
           return throwError(() => new Error(Object.entries(errordata.error).join('\n')))
         }
         if(errordata.status === 403){
+          this.errorService.setError(true);
           return throwError(() => new Error(Object.entries(errordata.error).join('\n'))) 
+
         }
         return throwError(() => new Error(Object.entries(errordata.error).join('\n')));
       })

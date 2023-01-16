@@ -44,9 +44,12 @@ export interface Company {
 }
 
 export interface Admin {
+    'id': string,
     "email": string,
     "first_name": string,
     "last_name": string,
+    "ip_address": string[],
+    'company': Company["name"]
 }
 
 export interface Invites  {
@@ -58,8 +61,9 @@ export interface Invites  {
 }
 
 export interface IpAddress {
-    "id": string,
-    "ip_address": string,
-    "verified": boolean,
-    "account": string
-}
+    id: number;
+    ip_address: string;
+    verified: boolean;
+    account: string;
+    [key: string]: number | string | boolean;
+  }

@@ -21,6 +21,7 @@ export class NavComponent {
       { title: 'Dashboard', fragment: 'dashboard' },
       { title: 'Companies', fragment: 'companies' },
       { title: 'Invites', fragment: 'invites' },
+      { title: 'Tasks', fragment: 'tasks' },
       { title: 'IP address', fragment: 'ip-address'},
     ];
   

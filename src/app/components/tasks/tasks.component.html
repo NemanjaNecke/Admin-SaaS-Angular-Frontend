@@ -1,0 +1,79 @@
+<div class="mat-elevation-z8">
+  <button mat-raised-button color="primary" (click)="createTask()">Create a Task</button>
+  <table mat-table [dataSource]="dataSource" class="full-width-table" matSort matSortDisableClear *ngIf="!loading"
+  (matSortChange)="onSortChange($event)" aria-label="Elements">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    </ng-container>
+    <ng-container matColumnDef="created_by">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created by</th>
+      <td mat-cell *matCellDef="let row">{{row.created_by}}</td>
+    </ng-container>
+    <ng-container matColumnDef="responsible_user">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsible User</th>
+      <td mat-cell *matCellDef="let row">{{row.responsible_user}}</td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+      <td mat-cell *matCellDef="let row">{{row.description}}</td>
+    </ng-container>
+    <ng-container matColumnDef="due_date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</th>
+      <td mat-cell *matCellDef="let row">{{row.due_date | date}}</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let row">{{row.status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+      <td mat-cell *matCellDef="let row">{{row.value | number}} {{row.currency}}</td>
+    </ng-container>
+    <ng-container matColumnDef="currency">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency</th>
+      <td mat-cell *matCellDef="let row"> {{row.currency}}</td>
+    </ng-container>
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+      <td mat-cell *matCellDef="let row">{{row.priority}}</td>
+    </ng-container>
+    <ng-container matColumnDef="notification">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Notification</th>
+      <td mat-cell *matCellDef="let row">
+        <ng-container>
+        <mat-chip-listbox role="list">
+          <mat-chip-option selected color="accent" disabled [selected]="row.notification">
+            {{row.notification}}</mat-chip-option>
+            <!-- click event -->
+        </mat-chip-listbox>
+        
+      </ng-container>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="notification_date" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Notification date</th>
+      <td mat-cell *matCellDef="let row">{{row.notification_date | date}}</td>
+    </ng-container>
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+      <td mat-cell *matCellDef="let row">{{row.category}}</td>
+    </ng-container>
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Company</th>
+      <td mat-cell *matCellDef="let row">{{row.company}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row (click)="openTask(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource.totalLength"
+      [pageIndex]="0"
+      [pageSize]="10"
+      (nextPage)="next" (previousPage)="previous"
+      aria-label="Select page">
+  </mat-paginator>
+</div>

@@ -13,20 +13,16 @@ export class IpaddressService {
   baseUrl = environment.baseUrl;
   inviteUrl = environment.apipaths.ipAddress
   token!: any;
-  headers!: any;
+
   user!: any
   constructor(private http: HttpClient, 
-    private loginService: LoginService, 
-    private jwtHelper: JwtHelperService) {
-      this.token = this.loginService.getJwtToken();
+   ) {
 
-this.user = this.jwtHelper.decodeToken(this.token);
-this.headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
     }
 
   public getData(@Optional() filter: string): Observable<any> {
     return this.http.get<{[key:number]:IpAddress}>(this.baseUrl + this.inviteUrl +
-      `?sort= ${filter}`, { headers: this.headers })
+      `?ordering= ${filter}`)
     .pipe(
       map((responseData) => {
         const ips:IpAddress[] = [];
