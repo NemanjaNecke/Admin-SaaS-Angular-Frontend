@@ -16,7 +16,7 @@ import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { TaskService } from 'src/app/services/task.service';
 import { ChartData } from 'chart.js';
-import { AnalyticsInt, apexChartTwo, ChartOptions, ChartOptionsPriority, TaskResponse, transformApexChartOne, transformAPIResponse, transformData } from 'src/app/models/task.model';
+import { AnalyticsInt, ApexChartThree, apexChartTwo, ChartOptions, ChartOptionsMixed, ChartOptionsPriority, TaskResponse, transformApexChartOne, transformAPIResponse, transformData } from 'src/app/models/task.model';
 import { TokenRefreshInterceptor } from 'src/app/services/token-refresh.interceptor';
 import { ErrorService } from 'src/app/services/error.service';
 
@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit{
   pieChartData!: ChartData<'pie', number[], string | string[]>
   chartOptions!: Partial<ChartOptions>;
   chartOptionsPriority!: Partial<ChartOptionsPriority>
+  chartOptionsMixed!: Partial<ChartOptionsMixed>
  constructor(private breakpointObserver: BreakpointObserver, 
     private admin: ViewAdminService,
     public dialog: MatDialog,
@@ -67,13 +68,16 @@ export class DashboardComponent implements OnInit{
       const apiResponse: AnalyticsInt = res;
       const chartData = transformAPIResponse(apiResponse);
       const pieChartData = transformData(res);
-      const chartOptions = transformApexChartOne(res)
-      const chartPriority = apexChartTwo(res)
+      const chartOptions = transformApexChartOne(res);
+      const chartPriority = apexChartTwo(res);
+      const chartMixed = ApexChartThree(res);
       this.barChartData = chartData;
       this.pieChartData = pieChartData;
       this.chartOptions = chartOptions;
       this.chartOptionsPriority = chartPriority;
+      this.chartOptionsMixed = chartMixed;
       this.loading = false;
+
     })
         this.admin.getData().subscribe({
          next: (res)=>{
@@ -108,7 +112,6 @@ export class DashboardComponent implements OnInit{
       
     },
     error: (err) => {
-      console.log(err)
       this.error3 = true
       return this.error3
     }
@@ -121,6 +124,7 @@ export class DashboardComponent implements OnInit{
           { title: 'Value of tasks per category', cols:1, rows:1, type:'sales'},
           { title: 'Compare value per status and category', cols:2, rows:2, type:'apexOne'},
           { title: 'Value % per priority', cols:2, rows:1, type:'apexTwo'},
+          { title: 'Value % per priority', cols:2, rows:1, type:'apexThree'},
           { title: 'Ip address', cols: 2, rows: 1,  type:'ip' },
         ];
         return this.cards = of(this.errorCards);
@@ -193,6 +197,8 @@ export class DashboardComponent implements OnInit{
           { title: 'Number of tasks per status', cols:1, rows:1, type:'analytics'},
           { title: 'Value of tasks per category and status', cols:1, rows:1, type:'sales'},
           { title: 'Compare value per status and category', cols:1, rows:1, type:'apexOne'},
+          { title: 'Value % per priority', cols:1, rows:1, type:'apexTwo'},
+          { title: 'Value % per priority', cols:2, rows:2, type:'apexThree'},
           { title: 'Admin Users', cols: 1, rows: 1,  type:'admin' },
           { title: 'Companies', cols: 1, rows: 1,  type:'companies' },
           { title: 'Invites', cols: 1, rows: 1, type:'invites' },
@@ -201,10 +207,11 @@ export class DashboardComponent implements OnInit{
         ];
       }
         return [
-        { title: 'Number of tasks per status', cols:1, rows:1, type:'analytics'},
-        { title: 'Value of tasks per category', cols:1, rows:1, type:'sales'},
+        { title: 'Number of tasks per status', cols:2, rows:2, type:'analytics'},
+        { title: 'Value of tasks per category', cols:2, rows:2, type:'sales'},
         { title: 'Compare value per status and category', cols:2, rows:2, type:'apexOne'},
         { title: 'Value % per priority', cols:2, rows:1, type:'apexTwo'},
+        { title: 'Value % per priority', cols:2, rows:1, type:'apexThree'},
         { title: 'Admin Users', cols: 4, rows: 2,  type:'admin' },
         { title: 'Companies', cols: 3, rows: 1,  type:'companies' },
         { title: 'Invites', cols: 2, rows: 1, type:'invites' },

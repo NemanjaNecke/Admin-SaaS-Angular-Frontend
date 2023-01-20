@@ -16,10 +16,12 @@ export interface Task {
 	"responsible_user": string
 }
 interface Result {
-	analytics: AnalyticsInt;
 	data: Task[];
   }
 
+  export interface NotificationCount {
+	count: number
+  }
 export const STATUS = [
 	{viewValue: 'Opened',value:'open' },
  	{viewValue:'Assigned',value:'assigned'},
@@ -58,8 +60,17 @@ export interface AnalyticsInt {
 	task_value_per_category: { category: string, value: number }[];
 	task_value_per_status: { status: string, value: number }[];
 	tasks_per_status_and_category: { status: string, category: string, value: number }[];
+	task_count_per_month: {month: string, count: number}[],
+	task_per_priority: {priority: string, count: number}[],
+	monthdata: Month[]
 	}
-
+}
+interface Month {
+    month: string
+    count: number ,
+    value:  number,
+    average_val:  number 
+  
 }
 export interface TaskResponse {
 	count: number;
@@ -117,7 +128,8 @@ export function transformAPIResponse(response: AnalyticsInt): { datasets: { data
 	ApexPlotOptions,
 	ApexFill,
 	ApexYAxis,
-	ApexTitleSubtitle
+	ApexTitleSubtitle,
+	ApexMarkers,
   } from "ng-apexcharts";
   export type ChartOptions = {
 	series: ApexAxisChartSeries;
@@ -154,8 +166,10 @@ export function transformApexChartOne(data: AnalyticsInt){
 		seriesDataCategory.push(c.value)
 		axisCategoryCategory.push(c.category)
 	}
-
-	const axisCategoryComb = axisCategoryStatus.map((element, index) => element + ' | ' + axisCategoryCategory[index]);
+	
+	const axisCategoryComb = axisCategoryStatus
+	.map((status, index) => 
+	status ? status + ' | ' + (axisCategoryCategory[index] ? axisCategoryCategory[index] : '') : '');
 	const chartOptions: ChartOptions = {
 	series: [
 	  {
@@ -301,3 +315,99 @@ export function apexChartTwo(data: AnalyticsInt) {
 	  };
 	  return chartOptions;
 }
+
+
+
+export type ChartOptionsMixed = {
+	series: ApexAxisChartSeries;
+	chart: ApexChart;
+	xaxis: ApexXAxis;
+	yaxis: ApexYAxis | ApexYAxis[];
+	labels: string[];
+	stroke: any; // ApexStroke;
+	markers: ApexMarkers;
+	plotOptions: ApexPlotOptions;
+	fill: ApexFill;
+	tooltip: ApexTooltip;
+};
+
+
+export function ApexChartThree(data: AnalyticsInt) {
+	const chartData = data.analytics.monthdata;
+
+    const chartOptions: ChartOptionsMixed = {
+        series: [
+            {
+                name: "Average",
+                type: "column",
+                data: chartData.map(d => d.average_val)
+            },
+            {
+                name: "Value",
+                type: "area",
+                data: chartData.map(d => d.value)
+            },
+            {
+                name: "Count",
+                type: "line",
+                data: chartData.map(d => d.count)
+            }
+        ],
+        chart: {
+          height: 300,
+          type: "line",
+          stacked: false
+        },
+        stroke: {
+          width: [0, 2, 5],
+          curve: "smooth"
+        },
+        plotOptions: {
+          bar: {
+            columnWidth: "50%"
+          }
+        },
+        fill: {
+          opacity: [0.85, 0.75, 1],
+          gradient: {
+            inverseColors: false,
+            shade: "light",
+            type: "vertical",
+            opacityFrom: 0.85,
+            opacityTo: 0.55,
+            stops: [0, 100, 100, 100]
+          }
+        },
+        labels: chartData.map(d => d.month),
+        markers: {
+          size: 0
+        },
+		xaxis: {
+		  type: "category"
+		},
+		yaxis: {
+		  title: {
+			text: "Count"
+		  },
+		  min: 0
+		},
+		tooltip: {
+		  shared: true,
+		  intersect: false,
+		  y: {
+			formatter: function(y:number) {
+			  if (typeof y !== "undefined") {
+				return y.toFixed(0) + " tasks";
+			  }
+			  return y;
+			}
+		  }
+		}
+	  };
+   return chartOptions;
+  
+}
+
+ 
+ 
+

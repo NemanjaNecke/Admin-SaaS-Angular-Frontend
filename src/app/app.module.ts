@@ -60,6 +60,11 @@ import { TDetailsComponent } from './components/tasks/t-details/t-details.compon
 import { TaskCreateComponent } from './components/tasks/task-create/task-create.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatBadgeModule} from '@angular/material/badge';
+import { ApexMixedComponent } from './components/dashboard/task-charts/apex-mixed/apex-mixed.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { AnalyticsOverviewComponent } from './components/tasks/analytics/analytics.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +92,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     TasksComponent,
     TDetailsComponent,
     TaskCreateComponent,
+    ApexMixedComponent,
+    AnalyticsOverviewComponent
   ],
   imports: [
     NgChartsModule,
@@ -124,7 +131,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     DragDropModule,
     MatTooltipModule,
     MatPaginatorModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatButtonToggleModule,
+    MatBadgeModule,
+    MatTabsModule
   ],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,{

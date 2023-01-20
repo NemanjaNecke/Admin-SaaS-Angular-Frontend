@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatButtonToggle } from '@angular/material/button-toggle';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,8 +23,17 @@ export class TasksComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Task>;
+  @ViewChild('group', { static: true }) group!: MatButtonToggle;
   dataSource: TasksDataSource;
   accounts: User[] = []
+  selectedFilters: { [key: string]: string | undefined } = {};
+
+  filterStatus?: string;
+  filterCurrency?: string;
+  filterResponsible?: string;
+  filterCreated?: string;
+
+  //'status', 'currency', 'responsible_user', 'created_by'
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
     'id','created_by','responsible_user','description','due_date','status','value','currency',
@@ -67,6 +78,7 @@ export class TasksComponent implements AfterViewInit, OnInit {
       })
     }
   }
+
   createTask(){
     const dialogRef = this.dialog.open(TaskCreateComponent, {
       data: this.accounts
@@ -86,14 +98,41 @@ export class TasksComponent implements AfterViewInit, OnInit {
 
          this.openSnackBar(err, 'X')
        }
-         }
-        
-         )
-     }
+         })}
        },
    )
   }
-  
+  onChange(groupValues: string[]){
+    for (const value of groupValues) {
+      switch (value) {
+        case 'status':
+          this.selectedFilters['status'] = this.filterStatus;
+          break;
+        case 'currency':
+          this.selectedFilters['currency'] = this.filterCurrency;
+          break;
+        case 'responsible_user':
+          this.selectedFilters['responsible_user'] = this.filterResponsible;
+          break;
+        case 'created_by':
+          this.selectedFilters['created_by'] = this.filterCreated;
+          break;
+      }
+    }
+  }
+  filterTask(filters:{}){
+    this.selectedFilters = filters;
+    this.dataSource.loadFilteredTasks(filters);
+  }
+  clearFilters(){
+    this.filterStatus = ''
+    this.filterCurrency = ''
+    this.filterResponsible = ''
+    this.filterCreated = ''
+    this.group.value = ''
+    this.selectedFilters = {}
+    this.dataSource.loadTasks('')
+  }
   openTask(task:any){
     const dialogRef = this.dialog.open(TDetailsComponent, {
       data: task,

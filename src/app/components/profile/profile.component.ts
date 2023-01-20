@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, map } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { ProfileService } from 'src/app/services/profile.service';
+import { TaskService } from 'src/app/services/task.service';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 @Component({
@@ -14,15 +15,20 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
 export class ProfileComponent implements OnInit {
   profile!: User;
   loading!:boolean;
+  notificationCount!: number;
   constructor(private prof: ProfileService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar,){
+    private _snackBar: MatSnackBar,
+    private task: TaskService){
 
   }
 
   ngOnInit(): void {
     this.loading = true;
  this.getAccount();
+ this.task.getNotificationCount().subscribe((res)=>{
+  this.notificationCount = res.count;
+ })
   }
 
 getAccount(){

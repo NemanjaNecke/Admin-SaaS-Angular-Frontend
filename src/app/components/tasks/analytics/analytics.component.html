@@ -1,0 +1,25 @@
+<mat-tab-group dynamicHeight>
+    <mat-tab label="Total Tasks and Value"> 
+        <ng-template matTabContent>
+       <h3> Number of tasks loaded </h3><pre>{{analytics.analytics.total_tasks}}</pre>
+       <h3> Value of tasks</h3> <pre>{{analytics.analytics.total_value}}</pre>
+       <h3>Values per month:</h3> <pre>{{analytics.analytics.monthdata | json}}</pre>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Tasks Counts">
+        <ng-template matTabContent>
+            <h3>Tasks per status count:</h3> <pre>{{analytics.analytics.task_per_status | json}}</pre>
+            <h3>Task per category count:</h3> <pre>{{analytics.analytics.tasks_per_category | json}}</pre>
+            <h3>Tasks per priority count:</h3> <pre>{{analytics.analytics.task_per_priority | json}}</pre>
+            <h3>Task count per month:</h3> <pre>{{analytics.analytics.task_count_per_month | json}}</pre>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Value of tasks">
+        <ng-template matTabContent>
+            <h3>Value of tasks per status:</h3> <pre>{{analytics.analytics.task_value_per_status | json}}</pre>
+            <h3>Value of tasks per status:</h3><pre>{{analytics.analytics.task_value_per_category | json}}</pre> 
+            <h3>Value of tasks per priority:</h3> <pre>{{analytics.analytics.tasks_value_per_priority | json}}</pre>
+            
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

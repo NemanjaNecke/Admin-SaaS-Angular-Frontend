@@ -6,7 +6,8 @@ export enum ApiPaths {
   ipAddress = 'auth/ip-address',
   account = 'auth/accounts/account/',
   task = 'tasks/',
-  analytcis = 'tasks/analytics'
+  analytcis = 'tasks/analytics',
+  notifCount = 'tasks/notification_count/'
   }
   
   export enum RegistrationPaths {

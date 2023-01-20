@@ -14,3 +14,10 @@
   border-color: currentColor;
   background-color: #ffd740;
 }
+mat-button-toggle-group{
+  margin-left: 4%;
+}
+
+.last-butt {
+  margin-left: 3%;
+}

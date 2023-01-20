@@ -47,13 +47,18 @@ export class TasksDataSource extends DataSource<Task> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: Task[]): Task[] {
-    if (this.paginator) {
-      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-      return data.splice(startIndex, this.paginator.pageSize);
-    } else {
-      return data;
-    }
+  loadFilteredTasks(filters: any) {
+    this.tasks.filterData(filters).pipe(
+      catchError(() => of([])),
+      finalize(() => this.loadingSubject.next(false))
+  )
+  .subscribe(tasks => {
+    this.taskSubject.next(tasks.results.data)
+    this.totalLength = tasks.count;
+    this.next = tasks.next;
+    this.previous = tasks.previous;
+  }
+    );
   }
 
  

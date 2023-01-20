@@ -45,12 +45,18 @@ export class ConfirmPasswordResetComponent implements OnInit {
     const password2 = formData.value.password2;
     this.auth.resetPasswordConfirm(password1, password2, uid, token).pipe(
       catchError((error) => {
-        this.openSnackBar(error[0], 'X')
        return error
       })
     ).subscribe((res:any)=>{
-      this.openSnackBar(res.detail, 'X')
+      let error = this.auth.errors
+
+      if(error){
+        this.openSnackBar(JSON.stringify(error[0].error), 'X')
+      }else{
+              this.openSnackBar(res.detail, 'X')
       this.router.navigate(['/login'])
+      }
+
     });
   }
     

@@ -28,7 +28,8 @@
           <button mat-fab color="primary" [matMenuTriggerFor]="menu"><mat-icon>account_circle</mat-icon></button>
   <mat-menu #menu="matMenu">
   <button mat-menu-item routerLink="/home/profile">
-   Profile <mat-icon>account_box</mat-icon>
+   Profile <mat-icon  matBadge="{{ notificationCount }}" 
+   matBadgeColor="warn">account_box</mat-icon>
   </button>
   <button mat-menu-item (click)="logout()">
    Logout <mat-icon>logout</mat-icon>

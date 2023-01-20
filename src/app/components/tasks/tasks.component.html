@@ -1,5 +1,35 @@
 <div class="mat-elevation-z8">
-  <button mat-raised-button color="primary" (click)="createTask()">Create a Task</button>
+  <button mat-raised-button color="primary" 
+   (click)="createTask()">Create a Task</button>
+  <mat-button-toggle-group multiple #group="matButtonToggleGroup" (change)="onChange(group.value)"
+   aria-label="Filters">
+    <mat-button-toggle
+    value="status" #status >Status</mat-button-toggle>
+    <mat-form-field class="example-full-width" *ngIf="status.checked">
+      <mat-label>Filter value</mat-label>
+      <input matInput placeholder="Enter search value" [(ngModel)]="filterStatus">
+    </mat-form-field>
+    <mat-button-toggle #currency value="currency">Currency</mat-button-toggle>
+    <mat-form-field class="example-full-width" *ngIf="currency.checked">
+      <mat-label>Filter value</mat-label>
+      <input matInput placeholder="Enter search value" [(ngModel)]="filterCurrency">
+    </mat-form-field>
+    <mat-button-toggle #responsible value="responsible_user">Responsible User</mat-button-toggle>
+    <mat-form-field class="example-full-width" *ngIf="responsible.checked">
+      <mat-label>Filter value</mat-label>
+      <input matInput placeholder="Enter search value" [(ngModel)]="filterResponsible">
+    </mat-form-field>
+    <mat-button-toggle #created value="created_by">Created By</mat-button-toggle>
+    <mat-form-field class="example-full-width" *ngIf="created.checked">
+      <mat-label>Filter value</mat-label>
+      <input matInput placeholder="Enter search value" [(ngModel)]="filterCreated">
+    </mat-form-field>
+  </mat-button-toggle-group>
+
+  <button mat-raised-button color="primary" 
+  (click)="filterTask(selectedFilters)">Filter</button>
+  <button mat-raised-button color="primary" (click)="clearFilters()">Clear Filters</button>
+  <button mat-raised-button color="primary" class="last-butt" routerLink="/home/tasks/analytics">See detailed analytics</button>
   <table mat-table [dataSource]="dataSource" class="full-width-table" matSort matSortDisableClear *ngIf="!loading"
   (matSortChange)="onSortChange($event)" aria-label="Elements">
 

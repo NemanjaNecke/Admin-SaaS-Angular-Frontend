@@ -10,16 +10,8 @@ import { ChartOptions } from 'src/app/models/task.model';
   templateUrl: './apexcharts.component.html',
   styleUrls: ['./apexcharts.component.css']
 })
-export class ApexchartsComponent implements OnInit {
+export class ApexchartsComponent {
   @ViewChild("chart") chart!: ChartComponent;
   @Input() chartOptions!: Partial<ChartOptions> | any;
-  constructor(){
 
-  }
-  ngOnInit(){
-    if(this.chartOptions){
-      // Now you can render the chart safely
-      this.chart.updateOptions(this.chartOptions);
-    }
-  }
 }
