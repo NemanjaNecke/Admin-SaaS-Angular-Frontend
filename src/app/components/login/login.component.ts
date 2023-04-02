@@ -7,6 +7,9 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError } from 'rxjs';
+import { InvitesComponent } from '../dashboard/invites/invites.component';
+import { CreateInviteComponent } from '../dashboard/invites/create/create.component';
+import { InviteService } from 'src/app/services/invite.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +22,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private auth: LoginService,
+    private invite: InviteService,
     private router: Router,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
@@ -69,7 +73,28 @@ export class LoginComponent implements OnInit {
         })
       ).subscribe((res:any)=>{
         this.openSnackBar(res.detail, 'X')
-// zavrsi password reset na backend, zavrsi izmeni admina, kreni sa novim views za ovo
+
+      });
+    }
+      }
+   )
+  }
+  openDialogRegister(): void {
+    const dialogRef = this.dialog.open(CreateInviteComponent, {
+      data: '',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+          
+      this.invite.create(result).pipe(
+        catchError((error) => {
+          this.openSnackBar(error, 'X')
+         return error
+        })
+      ).subscribe((res:any)=>{
+        this.openSnackBar(res.detail, 'X')
+
       });
     }
       }

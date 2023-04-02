@@ -15,7 +15,11 @@ export class CreateInviteComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
   onCreate(){
-    this.dialogRef.close({ email: this.email, invited_by: this.admin });
+    const payload = { email: this.email, invited_by: null };
+    if (this.admin) {
+      payload.invited_by = this.admin;
+    }
+    this.dialogRef.close(payload);
   }
   onNoClick(): void {
     this.dialogRef.close();

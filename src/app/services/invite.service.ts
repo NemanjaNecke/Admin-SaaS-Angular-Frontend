@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, map } from 'rxjs';
@@ -13,7 +13,8 @@ export class InviteService {
   baseUrl = environment.baseUrl;
   inviteUrl = environment.apipaths.invites
  
-  constructor(private http: HttpClient, ) {
+  constructor(private http: HttpClient, private handler: HttpBackend,) {
+    this.http = new HttpClient(handler)
   }
 
   public getData(): Observable<any> {

@@ -1,5 +1,5 @@
 
-<h1 mat-dialog-title>Create an Invite</h1>
+<h1 mat-dialog-title matTooltip="If you skip the company it will set a default">Create an Invite</h1>
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
@@ -16,5 +16,7 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button (click)="onCreate()" cdkFocusInitial>Create</button>
+  <button mat-button (click)="onCreate()"
+  matTooltip="If you skip the company it will set a default"
+  cdkFocusInitial>Create</button>
 </div>
